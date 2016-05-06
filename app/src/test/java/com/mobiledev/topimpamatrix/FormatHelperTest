@@ -1,0 +1,53 @@
+package com.mobiledev.topimpamatrix;
+
+import org.ejml.data.Complex64F;
+import org.ejml.data.DenseMatrix64F;
+import org.junit.Assert;
+import org.junit.Test;
+
+/**
+ * Created by larspmayrand on 4/21/16.
+ */
+public class FormatHelperTest {
+
+    @Test
+    public void testMatrixToString() {
+        double[][] array = new double[][] {{1, 0}, {0, 5}};
+        Assert.assertEquals(FormatHelper.matrixToString(new DenseMatrix64F(array)), "(\\table 1, 0; 0, 5)");
+    }
+
+    @Test
+    public void testVectorToString() {
+        Vector vector = new Vector(new double[]{1, 5, 3});
+        Assert.assertEquals(FormatHelper.vectorToString(vector), "(\\table 1; 5; 3)");
+    }
+
+    @Test
+    public void testComplexToString() {
+        Assert.assertEquals(FormatHelper.complexToString(new Complex64F(0, 0)), "");
+        Assert.assertEquals(FormatHelper.complexToString(new Complex64F(1, 0)), "1");
+        Assert.assertEquals(FormatHelper.complexToString(new Complex64F(0, 1)), "i");
+        Assert.assertEquals(FormatHelper.complexToString(new Complex64F(0, -1)), "-i");
+        Assert.assertEquals(FormatHelper.complexToString(new Complex64F(1, 1)), "");
+        Assert.assertEquals(FormatHelper.complexToString(new Complex64F(1, -1)), "");
+        Assert.assertEquals(FormatHelper.complexToString(new Complex64F(1, -1)), "");
+        Assert.assertEquals(1, 0);
+    }
+
+    @Test
+    public void testStringToComplex() {
+        String numberA = "1 + 2i";
+        String numberB = "i";
+        Assert.assertTrue(FormatHelper.stringToComplex(numberA).real == 0);
+        Assert.assertTrue(FormatHelper.stringToComplex(numberA).imaginary == 1);
+        Assert.assertTrue(FormatHelper.stringToComplex(numberB).real == 1);
+        Assert.assertTrue(FormatHelper.stringToComplex(numberB).imaginary == 2);
+    }
+
+    @Test
+    public void testDoubleToString() {
+        Assert.assertEquals(FormatHelper.doubleToString(3.23124, 2), 3.23 + "");
+        Assert.assertEquals(FormatHelper.doubleToString(1.00, 2), 1 + "");
+    }
+
+}
